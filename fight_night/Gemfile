@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
-
+#Makes http fun again! https://github.com/jnunemaker/httparty
+gem 'httparty'
+#This gem simplifies the Twitch-API for ruby users. https://github.com/dustinlakin/twitch-rb
+gem 'twitch', '= 0.0.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record

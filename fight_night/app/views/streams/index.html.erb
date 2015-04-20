@@ -1,1 +1,24 @@
-<h1>Streams</h1>
+<h1>STREAMS</h1>
+
+<h2><%= link_to "TWITCH", "http://www.twitch.tv/" %></h2>
+<% @twitch_streams.each do | games | %>    
+    <%= games[0]["game"] %> <br/>
+    <% games.each do | stream | %>
+        <%= link_to (image_tag stream["preview"]["medium"]), stream["channel"]["url"] %> <br/>
+        <%= link_to stream["channel"]["status"], stream["channel"]["url"] %> <br/>
+        <%= "Viewers: #{stream["viewers"]} on " %> 
+        <%= link_to stream["channel"]["display_name"], stream["channel"]["url"] %> <br/>
+    <% end %>
+<br/>
+<% end %>
+
+<h2><%= link_to "HITBOX", "http://www.hitbox.tv/" %></h2>
+<% @hitbox_streams.each do | games | %>
+    <%= games[0][:game] %><br/>
+    <% games.each do | stream | %>
+        <%= link_to (image_tag stream[:channel_thumb]), "http://www.hitbox.tv/#{stream[:streamer_name]}" %><br/>
+        <%= link_to stream[:channel_name], "http://www.hitbox.tv/#{stream[:streamer_name]}" %> <br/>
+        <%= "Viewers: #{stream[:viewer_count]} on " %> 
+        <%= link_to stream[:streamer_name], "http://www.hitbox.tv/#{stream[:streamer_name]}" %><br/>
+    <% end %>
+<% end %>

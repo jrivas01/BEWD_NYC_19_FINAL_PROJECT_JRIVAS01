@@ -1,30 +1,25 @@
-require 'json'
-require 'rest-client'
-require 'uri'
-
 class StreamsController < ApplicationController
     def index
-        @games = Game.all
-    end
+        @twitch_streams = []
+        @hitbox_streams =[]
+        @twitch = Twitch.new
 
-    def initialize (name)
-        @name = name
-        
-        api_url = URI.escape("https://api.twitch.tv/kraken/search/streams?q=#{@name}")
-        
-        raw_output = RestClient.get(api_url)
-
-        @channels = JSON.load(raw_output)["streams"]
-    end
-
-    def print_channels
-        @channels.each do |index|
-            puts index["channel"]["status"]
-            puts index["channel"]["url"]
+        Game.all.each do | game |
+            raw_output = @twitch.searchStreams({q:"#{game.name}"})
+            if raw_output[:body]["streams"].empty? then 
+                next 
+            end
+            @twitch_streams.push(raw_output[:body]["streams"])
         end
-    end
 
-    def game_name #gets the "proper" name of the from the data we retrived from the API
-        @channels[0]["game"]
+        Game.all.each do | game |
+            raw_output = HitboxHelper.streams("#{game.name}")
+            if raw_output.empty? then 
+                next 
+            end
+            @hitbox_streams.push(raw_output)
+        end
+
+        #@hitbox_streams.push(HitboxHelper.streams("League of Legends"))
     end
 end
