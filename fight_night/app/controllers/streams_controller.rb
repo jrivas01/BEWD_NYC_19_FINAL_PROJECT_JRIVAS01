@@ -2,10 +2,10 @@ class StreamsController < ApplicationController
     def index
         @twitch_streams = []
         @hitbox_streams =[]
-        @twitch = Twitch.new
+        twitch = Twitch.new
 
         Game.all.each do | game |
-            raw_output = @twitch.searchStreams({q:"#{game.name}"})
+            raw_output = twitch.searchStreams({q:"#{game.name}"})
             if raw_output[:body]["streams"].empty? then 
                 next 
             end
@@ -24,8 +24,8 @@ class StreamsController < ApplicationController
     end
 
     def show
-        @twitch = Twitch.new
-        raw_output = @twitch.searchStreams({q:"#{params[:id]}"})
+        #@twitch = Twitch.new
+        raw_output = Twitch.new.searchStreams({q:"#{params[:id]}"})
         @channel = raw_output[:body]["streams"][0]["channel"]
         #Rails.logger.info("HEY THIS IS THE @channel!!! #{@channel}")
     end
