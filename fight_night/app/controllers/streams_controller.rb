@@ -22,4 +22,12 @@ class StreamsController < ApplicationController
 
         #@hitbox_streams.push(HitboxHelper.streams("League of Legends"))
     end
+
+    def show
+        @twitch = Twitch.new
+        raw_output = @twitch.searchStreams({q:"#{params[:id]}"})
+        @channel = raw_output[:body]["streams"][0]["channel"]
+        #Rails.logger.info("HEY THIS IS THE @channel!!! #{@channel}")
+    end
+
 end
