@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
 #Makes http fun again! https://github.com/jnunemaker/httparty
 gem 'httparty'
 #This gem simplifies the Twitch-API for ruby users. https://github.com/dustinlakin/twitch-rb
