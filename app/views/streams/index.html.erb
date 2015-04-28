@@ -1,4 +1,4 @@
-<h1>STREAMS</h1>
+<h1>STREAMS</h1><right><%=link_to "Games", games_path%></right>
 
 <h2><%= link_to "TWITCH", "http://www.twitch.tv/" %></h2>
 
@@ -14,9 +14,9 @@
                                     stream_path(stream["channel"]["display_name"]) %> </noscript>
         </div>                         
         <br/>
-        <%= link_to stream["channel"]["status"], stream["channel"]["url"] %> <br/>
+        <%= link_to stream["channel"]["status"], stream_path(stream["channel"]["display_name"]) %> <br/>
         <%= "Viewers: #{stream["viewers"]} on " %> 
-        <%= link_to stream["channel"]["display_name"], stream["channel"]["url"] %> <br/>
+        <%= link_to stream["channel"]["display_name"], stream["channel"]["url"] %> <br/> 
         </li>
     <% end %>
     </ul>

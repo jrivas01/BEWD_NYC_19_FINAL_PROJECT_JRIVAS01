@@ -20,7 +20,7 @@ class StreamsController < ApplicationController
             @hitbox_streams.push(raw_output)
         end
 
-        @hitbox_streams.push(HitboxHelper.streams("League of Legends"))
+        #@hitbox_streams.push(HitboxHelper.streams("League of Legends"))
     end
 
     def show

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
     resources :streams, only: [:index, :show]
 
+    resources :games
+
     #get '/stream/:', to: 'streams#show'
 
 end
