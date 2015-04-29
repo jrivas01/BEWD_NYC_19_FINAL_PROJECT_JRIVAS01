@@ -1,4 +1,4 @@
-<div class="small-1 columns medium-2 columns large-3 columns">
+<div class="small-2 columns medium-3 columns large-3 columns">
 
 <%= form_tag search_path, method: "GET" do |f| %>
     <%= label_tag(:q, "Search for a game:") %>
@@ -9,7 +9,7 @@
 <br/>
 
 </div>
-
+<center>
 <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-5">
 <% @games.each_with_index do | game, index | %>
 
@@ -22,3 +22,4 @@
 <% end %>
 </ul>
 <br/>
+</center>
