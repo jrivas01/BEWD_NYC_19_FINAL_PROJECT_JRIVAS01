@@ -1,6 +1,24 @@
-<% @games.each do | game | %>
-<%= link_to "#{game.name}", game_path(game.id) %> <br/>
+<div class="small-1 columns medium-2 columns large-3 columns">
+
+<%= form_tag search_path, method: "GET" do |f| %>
+    <%= label_tag(:q, "Search for a game:") %>
+    <%= text_field_tag(:q, params[:q]) %>
+    <%= submit_tag("Search") %>
 <% end %>
 
 <br/>
-<%= link_to "Add a new Game", new_game_path %>
+
+</div>
+
+<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-5">
+<% @games.each_with_index do | game, index | %>
+
+<li>
+<%= link_to "#{game.name}", game_path(game.id) %> <br/>
+<%= link_to (image_tag @boxart[index]["box"]["large"]), game_path(game.id) %> <br/>
+<%= link_to "View Streams", stream_path(id: game["name"]) %>
+</li>
+
+<% end %>
+</ul>
+<br/>

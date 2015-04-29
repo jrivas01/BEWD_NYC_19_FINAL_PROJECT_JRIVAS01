@@ -1,0 +1,12 @@
+<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-5">
+<% @search_result.each do | game | %>
+
+<li>
+<%= game["name"] %> <br/>
+<%= image_tag game["box"]["large"] %> <br/>
+<%= link_to "Add", new_game_path(new_game: game["name"]) %> || <%= link_to "View Streams", stream_path(id: game["name"]) %> 
+</li>
+
+<% end %>
+</ul>
+<br/>

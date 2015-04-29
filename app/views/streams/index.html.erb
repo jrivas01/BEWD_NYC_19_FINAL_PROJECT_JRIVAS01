@@ -1,9 +1,7 @@
-<h1>STREAMS</h1><right><%=link_to "Games", games_path%></right>
-
 <h2><%= link_to "TWITCH", "http://www.twitch.tv/" %></h2>
 
 <% @twitch_streams.each do | games | %>    
-    <%= games[0]["game"] %> <br/>
+    <%= link_to games[0]["game"], stream_path(games[0]["game"]) %> <br/>
     <center>
     <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
     <% games.each_with_index do | stream, index | %>
@@ -11,12 +9,12 @@
         <div class="twitch_stream" id= <%="#{stream["channel"]["name"]}"%>>
             <%= image_tag stream["preview"]["medium"] %>
             <noscript><%= link_to (image_tag stream["preview"]["medium"]), 
-                                    stream_path(stream["channel"]["display_name"]) %> </noscript>
+                                    twitch_path(id: stream["channel"]["display_name"]) %> </noscript>
         </div>                         
         <br/>
-        <%= link_to stream["channel"]["status"], stream_path(stream["channel"]["display_name"]) %> <br/>
+        <%= link_to stream["channel"]["status"], twitch_path(id: stream["channel"]["display_name"]) %> <br/>
         <%= "Viewers: #{stream["viewers"]} on " %> 
-        <%= link_to stream["channel"]["display_name"], stream["channel"]["url"] %> <br/> 
+        <%= link_to stream["channel"]["display_name"], twitch_path(id:stream["channel"]["display_name"]) %> <br/> 
         </li>
     <% end %>
     </ul>
@@ -48,17 +46,44 @@ for (var i=0; i<videos.length; i++) {
 
 <h2><%= link_to "HITBOX", "http://www.hitbox.tv/" %></h2>
 <% @hitbox_streams.each do | games | %>
-    <%= games[0][:game] %><br/>
+    <%= link_to games[0][:game], stream_path(games[0][:game]) %><br/>
     <center>
     <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
     <% games.each do | stream | %>
         <li>
-        <%= link_to (image_tag stream[:channel_thumb]), "http://www.hitbox.tv/#{stream[:streamer_name]}" %><br/>
-        <%= link_to stream[:channel_name], "http://www.hitbox.tv/#{stream[:streamer_name]}" %> <br/>
+        <div class="hitbox_stream" id= <%="#{stream[:streamer_name]}"%>>
+        <%= image_tag stream[:channel_thumb] %>
+        <noscript><%= link_to (image_tag stream[:channel_thumb]), hitbox_path(id: stream[:streamer_name]) %></noscript>
+         </div>
+         <br/>
+        <%= link_to stream[:channel_name], hitbox_path(id: stream[:streamer_name]) %> <br/>
         <%= "Viewers: #{stream[:viewer_count]} on " %> 
-        <%= link_to stream[:streamer_name], "http://www.hitbox.tv/#{stream[:streamer_name]}" %><br/>
+        <%= link_to stream[:streamer_name], hitbox_path(id: stream[:streamer_name]) %><br/>
         </li>
     <% end %>
     </ul>
     </center>
 <% end %>
+
+
+<script>
+
+var hbvideos = document.getElementsByClassName("hitbox_stream"); 
+ 
+for (var i=0; i<hbvideos.length; i++) {
+  
+  var hitbox_stream = hbvideos[i];
+    
+  hitbox_stream.onclick = function() {
+ 
+    var iframe = document.createElement("iframe");
+    iframe.setAttribute("src", "http://hitbox.tv/#!/embed/" + this.id + "?autoplay=true");
+    iframe.setAttribute("width", "320");
+    iframe.setAttribute("height", "180");
+    iframe.setAttribute("frameborder", "0");
+       
+    this.parentNode.replaceChild(iframe, this);
+ 
+  };
+}
+</script>

@@ -1,14 +1,28 @@
 class GamesController < ApplicationController
+
   def index
     @games = Game.all
+    @boxart = []
+
+    Game.all.each do | game |
+      raw_output = Twitch.new.searchGames({q:"#{game.name}", type: "suggest"})
+        if raw_output[:body]["games"].empty? then 
+          next 
+        end
+      @boxart.push(raw_output[:body]["games"][0])
+    end
+
   end
 
   def show
     @game = Game.find(params[:id])
+    @boxart = []
+    raw_output = Twitch.new.searchGames({q:"#{@game.name}", type: "suggest"})
+    @boxart.push(raw_output[:body]["games"][0])
   end
 
   def new
-    @game = Game.new
+      @game = Game.new(:name => params[:new_game])
   end
 
   def create
@@ -39,4 +53,10 @@ class GamesController < ApplicationController
     @game.destroy
     redirect_to games_path, notice: 'Game removed'
   end
+
+  def search
+    raw_output = Twitch.new.searchGames({q:"#{params[:q]}", type: "suggest"})
+    @search_result = raw_output[:body]["games"]
+  end
+
 end

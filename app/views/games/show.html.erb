@@ -1,4 +1,6 @@
 <%= @game.name %> </br>
+<%= image_tag @boxart[0]["box"]["large"] %> </br>
 
 <%= link_to "Edit", edit_game_path(@game.id)%> || 
-<%= link_to 'Remove', game_path(@game), method: :delete %>
+<%= link_to 'Remove', game_path(@game), method: :delete %> ||
+<%= link_to "View Streams", stream_path(id: @game.name) %>
