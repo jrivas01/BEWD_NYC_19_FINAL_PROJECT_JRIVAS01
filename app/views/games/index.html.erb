@@ -1,11 +1,11 @@
 <div class="small-2 columns medium-3 columns large-3 columns">
-
+<p>
 <%= form_tag search_path, method: "GET" do |f| %>
     <%= label_tag(:q, "Search for a game:") %>
     <%= text_field_tag(:q, params[:q]) %>
     <%= submit_tag("Search") %>
 <% end %>
-
+</p>
 <br/>
 
 </div>
