@@ -17,8 +17,11 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @boxart = []
+    
     raw_output = Twitch.new.searchGames({q:"#{@game.name}", type: "suggest"})
+    
     @boxart.push(raw_output[:body]["games"][0])
+  
   end
 
   def new

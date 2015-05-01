@@ -1,4 +1,12 @@
-<h3><%= @twitch_streams[0][0]["game"] %></h3>
+<h3><%= 
+    if @twitch_streams.empty? then 
+        params[:id] 
+    else 
+        @twitch_streams[0][0]["game"] 
+    end 
+    %>
+</h3>
+
 <h2><%= link_to "TWITCH", "http://www.twitch.tv/" %></h2>
 <% @twitch_streams.each do | games | %>
     <center>

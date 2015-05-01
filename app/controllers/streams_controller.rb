@@ -27,13 +27,16 @@ class StreamsController < ApplicationController
         @hitbox_streams =[]
         twitch = Twitch.new
 
-        raw_output = twitch.searchStreams({q: params[:id]})
+        twitch_raw_output = twitch.searchStreams({q: params[:id]})
+        hitbox_raw_output = HitboxHelper.streams(params[:id])
 
-        @twitch_streams.push(raw_output[:body]["streams"])
+        if twitch_raw_output[:body]["streams"].empty? == FALSE then 
+            @twitch_streams.push(twitch_raw_output[:body]["streams"])
+        end
 
-        raw_output = HitboxHelper.streams(params[:id])
-
-        @hitbox_streams.push(raw_output)
+        if hitbox_raw_output.empty? == FALSE then 
+             @hitbox_streams.push(hitbox_raw_output)
+        end
     end
 
     def twitch
